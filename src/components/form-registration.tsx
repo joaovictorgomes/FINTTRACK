@@ -22,9 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Clock, ImagePlus, X } from "lucide-react";
+import { Clock, ImagePlus, Loader2, X } from "lucide-react";
 import { DatePickerSimples } from "./date-picker-simples";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface FormData {
   date: Date | undefined;
@@ -42,8 +43,10 @@ interface FormData {
 export default function Formregistration() {
   const { data: session } = useSession();
   console.log(session); // Verifique o conteúdo da sessão no console
+  const queryClient = useQueryClient();
 
   // Estados com tipagem
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<Date | undefined>(undefined);
   const [hora, setHora] = useState<string>("");
   const [imagemPreview, setImagemPreview] = useState<string | null>(null);
@@ -86,6 +89,8 @@ export default function Formregistration() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setLoading(true);
 
     if (!session?.user?.id) {
       toast.error("Usuário não autenticado.", {
@@ -181,6 +186,8 @@ export default function Formregistration() {
         },
       });
 
+      queryClient.invalidateQueries({ queryKey: ["appointments"] });
+
       // Limpar os estados após sucesso
       setData(undefined);
       setHora("");
@@ -201,6 +208,8 @@ export default function Formregistration() {
           fontWeight: "bold",
         },
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -377,7 +386,12 @@ export default function Formregistration() {
           </div>
         </CardContent>
         <CardFooter>
-          <Button type="submit" className="w-full md:w-auto md:ml-auto">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full md:w-auto md:ml-auto flex items-center justify-center gap-2"
+          >
+            {loading && <Loader2 className="animate-spin h-5 w-5" />}
             Salvar Atendimento
           </Button>
         </CardFooter>

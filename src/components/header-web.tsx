@@ -4,12 +4,9 @@ import Link from "next/link";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Command } from "lucide-react";
 import { UserDropdown } from "./user-dropdown";
-import Image from "next/image";
 
 const MenuItems = [
   {
@@ -45,13 +42,14 @@ export default function HeaderWeb() {
               className="flex flex-row gap-2 items-center text-white"
               href="/dashboard"
             >
-              <Image
+              {/* <Image
                 src="/favicon.svg"
                 alt="Logo"
                 width={40}
                 height={40}
                 className="w-10 h-10 object-contain"
-              />
+              /> */}
+              <span className="text-xl font-bold">Fintrack</span>
             </Link>
 
             {/* Desktop Navigation menu */}

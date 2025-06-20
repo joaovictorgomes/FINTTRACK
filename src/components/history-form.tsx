@@ -19,9 +19,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Clock, ImagePlus, X } from "lucide-react";
+import { Clock, ImagePlus, Loader2, X } from "lucide-react";
 import { DatePickerSimples } from "./date-picker-simples";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface HistoryFormProps {
   modo: "editar" | "criar";
@@ -41,6 +42,8 @@ export const desformatarMoeda = (valor: string): string => {
 };
 
 const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
+  const queryClient = useQueryClient();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState(dadosIniciais?.date || new Date());
   const [hora, setHora] = useState(dadosIniciais?.time || "");
   const [tipoCorte, setTipoCorte] = useState(dadosIniciais?.type || "");
@@ -100,49 +103,57 @@ const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const payload = {
-      date: data,
-      time: hora,
-      type: tipoCorte,
-      attendant: atendente,
-      price: Number(valor) * 100, // Convertendo para centavos ao enviar
-      payment: formaPagamento,
-      status: statusAtendimento,
-      image: imagemPreview,
-      notes,
-    };
+    setLoading(true);
 
-    const method = modo === "editar" ? "PUT" : "POST";
-    const url =
-      modo === "editar"
-        ? `/api/appointments/${dadosIniciais?.id}`
-        : `/api/appointments`;
+    try {
+      const payload = {
+        date: data,
+        time: hora,
+        type: tipoCorte,
+        attendant: atendente,
+        price: Number(valor) * 100, // Convertendo para centavos ao enviar
+        payment: formaPagamento,
+        status: statusAtendimento,
+        image: imagemPreview,
+        notes,
+      };
 
-    const res = await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+      const method = modo === "editar" ? "PUT" : "POST";
+      const url =
+        modo === "editar"
+          ? `/api/appointments/${dadosIniciais?.id}`
+          : `/api/appointments`;
 
-    if (res.ok) {
-      toast.success("Atendimento atualizado com sucesso!", {
-        icon: "🎉",
-        style: {
-          background: "#e6ffed", // verde claro de fundo
-          color: "#087f5b", // verde escuro no texto
-          fontWeight: "bold",
-        },
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      onSucesso?.();
-    } else {
-      toast.error("Erro ao tentar atualizar atendimento.", {
-        icon: "❌",
-        style: {
-          background: "#ffe6e6",
-          color: "#c92a2a",
-          fontWeight: "bold",
-        },
-      });
+
+      if (res.ok) {
+        toast.success("Atendimento atualizado com sucesso!", {
+          icon: "🎉",
+          style: {
+            background: "#e6ffed", // verde claro de fundo
+            color: "#087f5b", // verde escuro no texto
+            fontWeight: "bold",
+          },
+        });
+        queryClient.invalidateQueries({ queryKey: ["appointments"] });
+
+        onSucesso?.();
+      } else {
+        toast.error("Erro ao tentar atualizar atendimento.", {
+          icon: "❌",
+          style: {
+            background: "#ffe6e6",
+            color: "#c92a2a",
+            fontWeight: "bold",
+          },
+        });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -317,7 +328,12 @@ const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
           </div>
         </CardContent>
         <CardFooter>
-          <Button type="submit" className="w-full md:w-auto md:ml-auto">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full md:w-auto md:ml-auto flex items-center justify-center gap-2"
+          >
+            {loading && <Loader2 className="animate-spin h-5 w-5" />}
             Atualizar
           </Button>
         </CardFooter>
