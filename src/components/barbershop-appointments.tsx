@@ -60,7 +60,7 @@ import { toast } from "sonner";
 
 // Tipos
 type PaymentMethod = "Dinheiro" | "Pix" | "Cartão";
-type AppointmentStatus = "Agendado" | "Concluído" | "Cancelado";
+type AppointmentStatus = "Pendente" | "Concluído" | "Cancelado";
 
 interface Appointment {
   id: string;
@@ -77,7 +77,7 @@ interface Appointment {
 const StatusBadge = ({ status }: { status: string }) => {
   let badgeClass: string = "";
   switch (status) {
-    case "Agendado":
+    case "Pendente":
       badgeClass = "bg-blue-100 text-blue-800 hover:bg-blue-100";
       break;
     case "Concluído":
@@ -380,7 +380,7 @@ export default function BarbershopAppointments() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Todos</SelectItem>
-                  <SelectItem value="Agendado">Agendado</SelectItem>
+                  <SelectItem value="Pendente">Pendente</SelectItem>
                   <SelectItem value="Concluído">Concluído</SelectItem>
                   <SelectItem value="Cancelado">Cancelado</SelectItem>
                 </SelectContent>

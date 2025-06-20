@@ -263,9 +263,9 @@ export default function Formregistration() {
                   <SelectValue placeholder="Selecione o atendente" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="joao">João</SelectItem>
-                  <SelectItem value="maria">Maria</SelectItem>
-                  <SelectItem value="carlos">Carlos</SelectItem>
+                  <SelectItem value="natan">Natan</SelectItem>
+                  <SelectItem value="matheus">Matheus</SelectItem>
+                  <SelectItem value="luciano">Luciano</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -312,7 +312,7 @@ export default function Formregistration() {
                   <SelectValue placeholder="Selecione o status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Agendado">Agendado</SelectItem>
+                  <SelectItem value="Pendente">Pendente</SelectItem>
                   <SelectItem value="Concluído">Concluído</SelectItem>
                   <SelectItem value="Cancelado">Cancelado</SelectItem>
                 </SelectContent>

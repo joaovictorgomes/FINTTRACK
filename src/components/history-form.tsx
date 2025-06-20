@@ -126,13 +126,13 @@ const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
 
     if (res.ok) {
       toast.success("Atendimento atualizado com sucesso!", {
-              icon: "🎉",
-              style: {
-                background: "#e6ffed", // verde claro de fundo
-                color: "#087f5b", // verde escuro no texto
-                fontWeight: "bold",
-              },
-            });
+        icon: "🎉",
+        style: {
+          background: "#e6ffed", // verde claro de fundo
+          color: "#087f5b", // verde escuro no texto
+          fontWeight: "bold",
+        },
+      });
       onSucesso?.();
     } else {
       toast.error("Erro ao tentar atualizar atendimento.", {
@@ -206,9 +206,9 @@ const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
                   <SelectValue placeholder="Selecione o atendente" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="joao">João</SelectItem>
-                  <SelectItem value="maria">Maria</SelectItem>
-                  <SelectItem value="carlos">Carlos</SelectItem>
+                  <SelectItem value="natan">Natan</SelectItem>
+                  <SelectItem value="matheus">Matheus</SelectItem>
+                  <SelectItem value="luciano">Luciano</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -250,7 +250,7 @@ const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
                   <SelectValue placeholder="Selecione o status" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Agendado">Agendado</SelectItem>
+                  <SelectItem value="Pendente">Pendente</SelectItem>
                   <SelectItem value="Concluído">Concluído</SelectItem>
                   <SelectItem value="Cancelado">Cancelado</SelectItem>
                 </SelectContent>
@@ -267,6 +267,7 @@ const HistoryForm = ({ modo, dadosIniciais, onSucesso }: HistoryFormProps) => {
                     variant="outline"
                     className="w-full"
                     onClick={() => document.getElementById("foto")?.click()}
+                    disabled
                   >
                     <ImagePlus className="mr-2 h-4 w-4" />
                     Selecionar imagem

@@ -12,6 +12,7 @@ import NotFound from "./not-found";
 import { useAppointments } from "@/features/appointments/useAppointments";
 import { useMemo } from "react";
 import { useAppointmentStats } from "@/hook/use-appointment-stats";
+import Link from "next/link";
 
 interface Appointment {
   date: string | Date;
@@ -91,10 +92,12 @@ export default function Dashboard() {
             </p>
           </div>
           <div className="flex items-center">
-            <Button className="w-full md:w-[180px]">
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              Novo Atendimento
-            </Button>
+            <Link href="/dashboard/registration">
+              <Button className="w-full md:w-[180px]">
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                Novo Atendimento
+              </Button>
+            </Link>
           </div>
         </div>
 
