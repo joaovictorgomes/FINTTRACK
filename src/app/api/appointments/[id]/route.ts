@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import type { PrismaClient } from '@prisma/client/edge'
+import { prisma } from '@/lib/prisma'
+
+
+const typedPrisma = prisma as unknown as PrismaClient
 
 // Função DELETE - Deletar um atendimento pelo ID
 export async function DELETE(req: Request) {
@@ -28,7 +32,7 @@ export async function DELETE(req: Request) {
     }
 
     // Verifica se o atendimento existe e se pertence ao usuário logado
-    const atendimento = await prisma.appointment.findUnique({
+    const atendimento = await typedPrisma.appointment.findUnique({
       where: { id },
     });
 
@@ -40,7 +44,7 @@ export async function DELETE(req: Request) {
     }
 
     // Deleta o atendimento
-    await prisma.appointment.delete({
+    await typedPrisma.appointment.delete({
       where: { id },
     });
 
@@ -79,7 +83,7 @@ export async function PUT(req: Request) {
       );
     }
 
-    const existing = await prisma.appointment.findUnique({
+    const existing = await typedPrisma.appointment.findUnique({
       where: { id },
     });
 
@@ -92,7 +96,7 @@ export async function PUT(req: Request) {
 
     const body = await req.json();
 
-    const updated = await prisma.appointment.update({
+    const updated = await typedPrisma.appointment.update({
       where: { id },
       data: {
         date: body.date,
@@ -131,7 +135,7 @@ export async function GET(req: Request) {
     }
 
     // Busca o atendimento no banco de dados
-    const atendimento = await prisma.appointment.findUnique({
+    const atendimento = await typedPrisma.appointment.findUnique({
       where: { id },
     });
 
