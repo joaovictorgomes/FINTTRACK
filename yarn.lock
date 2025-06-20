@@ -109,6 +109,11 @@
     "@prisma/fetch-engine" "6.10.1"
     "@prisma/get-platform" "6.10.1"
 
+"@prisma/extension-accelerate@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@prisma/extension-accelerate/-/extension-accelerate-2.0.1.tgz"
+  integrity sha512-KSQlLC5F1qxFQCqSP8SnCwhkv9SE40v8WR+UjHdRce0R7Fv/K3IfJJNANGFx5MNoOypK1VN6wfvRr6CNA/l+BQ==
+
 "@prisma/fetch-engine@6.10.1":
   version "6.10.1"
   resolved "https://registry.npmjs.org/@prisma/fetch-engine/-/fetch-engine-6.10.1.tgz"
