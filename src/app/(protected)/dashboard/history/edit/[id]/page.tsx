@@ -60,7 +60,7 @@ export default function EditPage() {
             disabled
             className="w-full md:w-auto md:ml-auto flex items-center justify-center gap-2"
           >
-            <Skeleton className="h-10 w-24" />
+            <Skeleton className="h-10 w-full md:w-24" />
           </button>
         </CardFooter>
       </Card>
