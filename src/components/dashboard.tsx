@@ -63,6 +63,7 @@ export default function Dashboard() {
   const {
     faturamentoHoje,
     variacaoFaturamentoHoje,
+    quantidadeDoDia,
     clientesAtendidosHoje,
     variacaoClientes,
     faturamentoMes,
@@ -103,83 +104,83 @@ export default function Dashboard() {
 
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center justify-between space-y-0 px-6">
               <CardTitle className="text-sm font-medium">
                 Atendimentos Hoje
               </CardTitle>
               <CalendarIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
+            </div>
             <CardContent>
-              <div className="text-2xl font-bold">{clientesAtendidosHoje}</div>
-              <p className={`text-xs ${getColorByVariation(variacaoClientes)}`}>
+              <div className="text-2xl font-bold">{quantidadeDoDia}</div>
+              {/* <p className={`text-xs ${getColorByVariation(variacaoClientes)}`}>
                 {variacaoClientes}% em relação a ontem
-              </p>
+              </p> */}
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center justify-between space-y-0 px-6">
               <CardTitle className="text-sm font-medium">
                 Faturamento Hoje
               </CardTitle>
               <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
+            </div>
             <CardContent>
               <div className="text-2xl font-bold">{faturamentoHoje}</div>
-              <p
+              {/* <p
                 className={`text-xs ${getColorByVariation(
                   variacaoFaturamentoHoje
                 )}`}
               >
                 {variacaoFaturamentoHoje}% em relação a ontem
-              </p>
+              </p> */}
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center justify-between space-y-0 px-6">
               <CardTitle className="text-sm font-medium">
                 Clientes Atendidos no Mês
               </CardTitle>
               <UsersIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
+            </div>
             <CardContent>
               <div className="text-2xl font-bold">{quantidadeDoMes}</div>
-              <p className={`text-xs ${getColorByVariation(variacaoClientes)}`}>
+              {/* <p className={`text-xs ${getColorByVariation(variacaoClientes)}`}>
                 {variacaoClientes}% em relação ao mês passado
-              </p>
+              </p> */}
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center justify-between space-y-0 px-6">
               <CardTitle className="text-sm font-medium">
                 Faturamento do Mês
               </CardTitle>
               <DollarSignIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
+            </div>
             <CardContent>
               <div className="text-2xl font-bold">{faturamentoMes}</div>
-              <p
+              {/* <p
                 className={`text-xs ${getColorByVariation(
                   variacaoFaturamentoMes
                 )}`}
               >
                 {variacaoFaturamentoMes}% em relação ao mês passado
-              </p>
+              </p> */}
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <div className="flex items-center justify-between space-y-0 px-6">
               <CardTitle className="text-sm font-medium">
                 Serviços Populares
               </CardTitle>
               <ScissorsIcon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
+            </div>
             <CardContent>
               <div className="text-2xl font-bold">{popular?.nome || "—"}</div>
-              <p
+              {/* <p
                 className={`text-xs ${getColorByVariation(
                   popular?.percentual ?? 0
                 )}`}
@@ -187,7 +188,7 @@ export default function Dashboard() {
                 {popular
                   ? `${popular.percentual}% dos atendimentos`
                   : "Nenhum atendimento"}
-              </p>
+              </p> */}
             </CardContent>
           </Card>
         </div>
