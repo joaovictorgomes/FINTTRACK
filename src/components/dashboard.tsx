@@ -13,6 +13,7 @@ import { useAppointments } from "@/features/appointments/useAppointments";
 import { useMemo } from "react";
 import { useAppointmentStats } from "@/hook/use-appointment-stats";
 import Link from "next/link";
+import { Skeleton } from "./ui/skeleton";
 
 interface Appointment {
   date: string | Date;
@@ -79,7 +80,45 @@ export default function Dashboard() {
     return "text-gray-500"; // se for zero
   };
 
-  if (isLoading) return <p>Carregando...</p>;
+  if (isLoading)
+    return (
+      <div className="flex flex-col">
+        <div>
+          {/* Header */}
+          <div className="mb-4 flex flex-col gap-4 md:flex-row md:justify-between md:items-center">
+            <div>
+              <Skeleton className="h-8 w-40" />
+              <Skeleton className="mt-2 h-4 w-64" />
+            </div>
+            <Skeleton className="h-10 w-full md:w-[180px] rounded-md" />
+          </div>
+
+          {/* Grid de cards */}
+          <div className="grid gap-4 md:grid-cols-2">
+            {[...Array(6)].map((_, i) => (
+              <Card key={i}>
+                <div className="flex items-center justify-between space-y-0 px-6 pt-6">
+                  <Skeleton className="h-4 w-32" />
+                  <Skeleton className="h-4 w-4 rounded-full" />
+                </div>
+                <CardContent className="pt-4">
+                  <Skeleton className="h-6 w-24" />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Parte inferior */}
+          <div className="mt-4">
+            <Card>
+              <CardContent>
+                <Skeleton className="h-16 w-full" />
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
   if (error) return <p>Erro ao carregar os atendimentos.</p>;
 
   return (
