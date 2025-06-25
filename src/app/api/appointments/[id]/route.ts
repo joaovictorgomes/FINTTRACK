@@ -1,11 +1,9 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-import type { PrismaClient } from '@prisma/client/edge'
-import { prisma } from '@/lib/prisma'
+// import type { PrismaClient } from "@prisma/client/edge";
+import { prisma } from "@/lib/prisma";
 
-
-const typedPrisma = prisma as unknown as PrismaClient
 
 // Função DELETE - Deletar um atendimento pelo ID
 export async function DELETE(req: Request) {
@@ -32,7 +30,7 @@ export async function DELETE(req: Request) {
     }
 
     // Verifica se o atendimento existe e se pertence ao usuário logado
-    const atendimento = await typedPrisma.appointment.findUnique({
+    const atendimento = await prisma.appointment.findUnique({
       where: { id },
     });
 
@@ -44,7 +42,7 @@ export async function DELETE(req: Request) {
     }
 
     // Deleta o atendimento
-    await typedPrisma.appointment.delete({
+    await prisma.appointment.delete({
       where: { id },
     });
 
@@ -83,7 +81,7 @@ export async function PUT(req: Request) {
       );
     }
 
-    const existing = await typedPrisma.appointment.findUnique({
+    const existing = await prisma.appointment.findUnique({
       where: { id },
     });
 
@@ -96,7 +94,7 @@ export async function PUT(req: Request) {
 
     const body = await req.json();
 
-    const updated = await typedPrisma.appointment.update({
+    const updated = await prisma.appointment.update({
       where: { id },
       data: {
         date: body.date,
@@ -125,7 +123,7 @@ export async function PUT(req: Request) {
 export async function GET(req: Request) {
   try {
     const { pathname } = new URL(req.url);
-    const id = pathname.split("/").pop(); 
+    const id = pathname.split("/").pop();
 
     if (!id) {
       return NextResponse.json(
@@ -135,7 +133,7 @@ export async function GET(req: Request) {
     }
 
     // Busca o atendimento no banco de dados
-    const atendimento = await typedPrisma.appointment.findUnique({
+    const atendimento = await prisma.appointment.findUnique({
       where: { id },
     });
 

@@ -2,9 +2,9 @@ import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 
-import type { PrismaClient } from "@prisma/client/edge";
+// import type { PrismaClient } from "@prisma/client/edge";
 
-const typedPrisma = prisma as unknown as PrismaClient;
+// const prisma = prisma as unknown as PrismaClient;
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -24,13 +24,13 @@ export const authOptions: NextAuthOptions = {
       console.log("Dados do usuário autenticado:", user);
 
       // Certifique-se de que está buscando o usuário pelo googleId corretamente
-      const existingUser = await typedPrisma.user.findUnique({
+      const existingUser = await prisma.user.findUnique({
         where: { googleId: user.id }, // Verifique se user.id é realmente o googleId
       });
 
       if (!existingUser) {
         console.log("Criando novo usuário:", user.id);
-        await typedPrisma.user.create({
+        await prisma.user.create({
           data: {
             googleId: user.id, // Salva o googleId corretamente
             email: user.email,
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
       console.log("Dados da sessão:", session, token); // Verifique o conteúdo da sessão e do token
 
       if (session?.user && token.sub) {
-        const user = await typedPrisma.user.findUnique({
+        const user = await prisma.user.findUnique({
           where: { googleId: token.sub }, // Utilizando o googleId para buscar o usuário
         });
 

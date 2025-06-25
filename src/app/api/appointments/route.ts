@@ -2,11 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
-import type { PrismaClient } from "@prisma/client/edge";
+// import type { PrismaClient } from "@prisma/client/edge";
 
-const typedPrisma = prisma as unknown as PrismaClient;
-
-
+// const prisma = prisma as unknown as PrismaClient;
 
 export async function POST(req: Request) {
   try {
@@ -49,7 +47,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const novoAtendimento = await typedPrisma.appointment.create({
+    const novoAtendimento = await prisma.appointment.create({
       data: {
         date: new Date(date),
         time,
@@ -87,7 +85,7 @@ export async function GET(req: Request) {
       );
     }
 
-    const atendimentos = await typedPrisma.appointment.findMany({
+    const atendimentos = await prisma.appointment.findMany({
       where: {
         userId: session.user.id,
       },
